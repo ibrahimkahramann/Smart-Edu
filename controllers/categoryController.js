@@ -1,8 +1,8 @@
-const Course = require('../models/Category');
+const Category = require('../models/Category');
 
 exports.createCategory = async (req, res) => {
   try {
-    const category = await Course.create(req.body);
+    const category = await Category.create(req.body);
     res.status(201).json({
       status: 'succes',
       category,
