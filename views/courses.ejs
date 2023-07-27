@@ -13,7 +13,18 @@
 <div id="overviews" class="section wb">
   <div class="container">
     <div class="row">
-			<div class="col-lg-9 blog-post-single">
+      <div class="col-lg-9 blog-post-single">
+        <% if(flashMessages) { %>
+          <% if(flashMessages.succes) { %>
+              <div class="alert alert-success">
+                  <%= flashMessages.succes %>
+              </div>
+          <% } else if (flashMessages.error) {%>
+          <div class="alert alert-danger">
+              <%= flashMessages.error %>
+          </div>
+          <% } %>
+        <% } %>
 				<div class="row">
 
 					<% courses.forEach((content) => { %>
@@ -29,13 +40,13 @@
 										<h2><a href="/courses/<%= content.slug %>" title=""><%= content.name %></a></h2>
 									</div>
 									<div class="course-desc">
-										<p><%= content.description %></p>
+										<p><%= content.description.substring(0, 100) + '...' %></p>
 									</div>
 								</div>
 								<div class="course-meta-bot">
 									<ul>
 										<li>
-											<i class="fa fa-user" aria-hidden="true"></i>Teacher Name
+											<i class="fa fa-user" aria-hidden="true"></i><%= content.user.name %>
 										</li>
 									</ul>
 								</div>
@@ -53,16 +64,16 @@
       <div class="col-lg-3 col-12 right-single">
         <div class="widget-search">
           <div class="site-search-area">
-            <form method="get" id="site-searchform" action="#">
+            <form method="GET" id="site-searchform" action="/courses">
               <div>
                 <input
                   class="input-text form-control"
-                  name="search-k"
+                  name="search"
                   id="search-k"
-                  placeholder="Search keywords..."
+                  placeholder="Search"
                   type="text"
                 />
-                <input id="searchsubmit" value="Search" type="submit" />
+                <button id="searchsubmit" value="Search" type="submit"></button>
               </div>
             </form>
           </div>
